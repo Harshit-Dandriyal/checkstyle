@@ -40,6 +40,44 @@ import com.puppycrawl.tools.checkstyle.api.TokenTypes;
  * <pre>
  * &lt;module name=&quot;NestedTryDepth&quot;/&gt;
  * </pre>
+ * <p>Example of violation:</p>
+ * <pre>
+ * try {
+ *     try {
+ *         try { // violation, current depth is 2, max allowed is 1
+ *         } catch (Exception e) {
+ *         }
+ *     } catch (Exception e) {
+ *     }
+ * } catch (Exception e) {
+ * }
+ * </pre>
+ * <p>Example of correct code:</p>
+ * <pre>
+ * try {
+ *     try { // OK
+ *     } catch (Exception e) {
+ *     }
+ * } catch (Exception e) {
+ * }
+ * </pre>
+ * <p>case 2: Example of Handling Unique and general Exceptions</p>
+ * <pre>
+ * try {
+ *     try { // OK, current depth is 1, max allowed depth is also 1
+ *             // any more nesting could cause code violation
+ *     } catch (ArithmeticException e) { // catches Arithmetic exceptions
+ *     } catch (NumberFormatException e) { // catches NUmber format exceptions
+ *     } catch (Exception e) { // catches a general exception other than stated above
+ *     }
+ * } catch (
+ *   ArithmeticException
+ * | NumberFormatException
+ * | ArrayIndexOutOfBoundsException e) { // catches any of the 3 exception
+ * } catch (Exception e) { // catching a general exception
+ * } finally { // do something when try catch blocks finished execution
+ * }
+ * </pre>
  * <p>
  * To configure the check to allow nesting depth 3:
  * </p>
@@ -48,7 +86,39 @@ import com.puppycrawl.tools.checkstyle.api.TokenTypes;
  *   &lt;property name=&quot;max&quot; value=&quot;3&quot;/&gt;
  * &lt;/module&gt;
  * </pre>
- *
+ * <p>Example of violation:</p>
+ * <pre>
+ * try {
+ *     try {
+ *         try {
+ *             try {
+ *                 try { // violation, current depth is 4, max allowed is 3
+ *                 } catch (Exception e) {
+ *                 }
+ *             } catch (Exception e) {
+ *             }
+ *         } catch (Exception e) {
+ *         }
+ *     } catch (Exception e) {
+ *     }
+ * } catch (Exception e) {
+ * }
+ *</pre>
+ *<p>Example of correct code:</p>
+ *<pre>
+ * try {
+ *     try {
+ *         try {
+ *             try { // OK
+ *             } catch (Exception e) {
+ *             }
+ *         } catch (Exception e) {
+ *         }
+ *     } catch (Exception e) {
+ *     }
+ * } catch (Exception e) {
+ * }
+ *</pre>
  * @since 3.2
  */
 @FileStatefulCheck
