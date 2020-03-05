@@ -61,6 +61,19 @@ import com.puppycrawl.tools.checkstyle.utils.CommonUtil;
  * <pre>
  * &lt;module name=&quot;NoWhitespaceBefore&quot;/&gt;
  * </pre>
+ * <p>Example:</p>
+ * <pre>
+ * int a;
+ * a ++; // violation, '++' is preceded with whitespace
+ * a++; // OK
+ * int foo
+ * ; // violation, linebreak is not allowed by default
+ * int bar; // OK
+ * int baz ; // violation, ';' is preceded with whitespace
+ * for (int i = 0 ; i &lt; 5; i++) {}
+ *            // ^ violation, ';' is preceded with whitespace
+ * for (int i = 0; i &lt; 5; i++) {} // OK
+ </pre>
  * <p>
  * To configure the check to allow linebreaks before a DOT token:
  * </p>
@@ -70,6 +83,18 @@ import com.puppycrawl.tools.checkstyle.utils.CommonUtil;
  *   &lt;property name=&quot;allowLineBreaks&quot; value=&quot;true&quot;/&gt;
  * &lt;/module&gt;
  * </pre>
+ * <p>Example:</p>
+ * <pre>
+ * Map .Entry e = null; // violation, whitespace before '.' is not allowed
+ * Map.Entry f = null; // OK
+ * int foo
+ * ; // OK, linebreak is allowed
+ * Object o = new Object();
+ * o . toString(); // violation, whitespace before '.' is not allowed
+ * o
+ *     .toString(); // OK, linebreak is allowed
+ * o.toString(); // OK
+ </pre>
  *
  * @since 3.0
  */
