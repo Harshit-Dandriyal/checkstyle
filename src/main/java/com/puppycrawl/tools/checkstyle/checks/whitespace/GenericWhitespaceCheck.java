@@ -50,12 +50,6 @@ import com.puppycrawl.tools.checkstyle.utils.CommonUtil;
  * <li> should be followed with whitespace in almost all cases,
  *   except diamond operators and when preceding method name or constructor.</li></ul>
  * <p>
- * To configure the check:
- * </p>
- * <pre>
- * &lt;module name=&quot;GenericWhitespace&quot;/&gt;
- * </pre>
- * <p>
  * Examples with correct spacing:
  * </p>
  * <pre>
@@ -77,16 +71,10 @@ import com.puppycrawl.tools.checkstyle.utils.CommonUtil;
  * MyClass obj = new &lt;String&gt;MyClass();
  * </pre>
  * <p>
- * Examples with incorrect spacing:
+ * To configure the check:
  * </p>
  * <pre>
- * List&lt; String&gt; l; // violation, "&lt;" followed by whitespace
- * Box b = Box. &lt;String&gt;of("foo"); // violation, "&lt;" preceded with whitespace
- * public&lt;T&gt; void foo() {} // violation, "&lt;" not preceded with whitespace
- *
- * List a = new ArrayList&lt;&gt; (); // violation, "&gt;" followed by whitespace
- * Map&lt;Integer, String&gt;m; // violation, "&gt;" not followed by whitespace
- * Pair&lt;Integer, Integer &gt; p; // violation, "&gt;" preceded with whitespace
+ * &lt;module name=&quot;GenericWhitespace&quot;/&gt;
  * </pre>
  *
  * @since 5.0
